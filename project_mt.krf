@@ -1,0 +1,10 @@
+; things to code: dndClass(classname), dndSubclass(subclassname, classname), dndRace(racename), dndStat(statname), dndSkill(skillname), 
+; dndSkillStat(skillname, statname), dndClassSave(statname, classname)
+
+(in-microtheory dnd2020)
+
+(isa dndClass Type)
+(isa dndRace Type)
+(isa dndStat Type)
+(isa dndSkill Type)
+
