@@ -1,10 +1,189 @@
-; things to code: dndClass(classname), dndSubclass(subclassname, classname), dndRace(racename), dndStat(statname), dndSkill(skillname), 
-; dndSkillStat(skillname, statname), dndClassSave(statname, classname)
+; properties: class, subclass, race, stat, skill, background, proficiency, tool, language
+; fighting style? caster amount?
+
+
+; relations: subclassOf, associatedStat, classSave
+; prioritizes: skill-synonyms to skills
 
 (in-microtheory dnd2020)
 
-(isa dndClass Type)
-(isa dndRace Type)
-(isa dndStat Type)
-(isa dndSkill Type)
+(isa dndAttribute ObjectType)
+
+(isa dndClass ObjectType)
+(genls dndClass dndAttribute)
+(isa dndSubclass ObjectType)
+(genls dndSubclass dndAttribute)
+(isa dndRace ObjectType)
+(genls dndRace dndAttribute)
+(isa dndStat ObjectType)
+(genls dndStat dndAttribute)
+(isa dndSkill ObjectType)
+(genls dndSkill dndAttribute)
+
+(isa subclassOf Predicate)
+(arity subclassOf 2)
+(arg1Isa subclassOf dndSubclass)
+(arg2Isa subclassOf dndClass)
+(comment subclassOf "(subclassOf ?subclassname ?classname) says that subclassname is a subclass of classname")
+
+(isa associatedStat Predicate)
+(arity associatedStat 2)
+(arg1Isa associatedStat dndSkill)
+(arg2Isa associatedStat dndStat)
+(comment associatedStat "(associatedStat ?skillname ?statname) says that skillname is associated with statname")
+
+(isa classSave Predicate)
+(arity classSave 2)
+(arg1Isa classSave dndClass)
+(arg2Isa classSave dndStat)
+(comment classSave "(classSave ?classname ?statname) says that classname has statname as a saving throw")
+
+
+
+
+
+(isa BarbarianClass dndClass)
+(isa BardClass dndClass)
+(isa ClericClass dndClass)
+(isa DruidClass dndClass)
+(isa FighterClass dndClass)
+(isa MonkClass dndClass)
+(isa PaladinClass dndClass)
+(isa RangerClass dndClass)
+(isa RogueClass dndClass)
+(isa SorcererClass dndClass)
+(isa WarlockClass dndClass)
+(isa WizardClass dndClass)
+
+(isa PathoftheBerserker dndSubclass)
+(isa PathoftheTotemWarrior dndSubclass)
+(isa CollegeofLore dndSubclass)
+(isa CollegeofValor dndSubclass)
+(isa KnowledgeDomain dndSubclass)
+(isa LifeDomain dndSubclass)
+(isa NatureDomain dndSubclass)
+(isa TempestDomain dndSubclass)
+(isa TrickeryDomain dndSubclass)
+(isa WarDomain dndSubclass)
+(isa CircleoftheLand dndSubclass)
+(isa CircleoftheMoon dndSubclass)
+(isa ChampionFighter dndSubclass)
+(isa BattleMaster dndSubclass)
+(isa EldritchKnight dndSubclass)
+(isa WayoftheOpenHand dndSubclass)
+(isa WayofShadow dndSubclass)
+(isa WayoftheFourElements dndSubclass)
+(isa OathofDevotion dndSubclass)
+(isa OathoftheAncients dndSubclass)
+(isa OathofVengeance dndSubclass)
+(isa HunterRanger dndSubclass)
+(isa BeastMaster dndSubclass)
+(isa ThiefRogue dndSubclass)
+(isa AssassinRogue dndSubclass)
+(isa ArcaneTrickster dndSubclass)
+(isa DraconicBloodline dndSubclass)
+(isa WildMagic dndSubclass)
+(isa ArchfeyPatron dndSubclass)
+(isa FiendPatron dndSubclass)
+(isa GreatOldOnePatron dndSubclass)
+
+
+(isa StrengthStat dndStat)
+(isa DexterityStat dndStat)
+(isa ConstitutionStat dndStat)
+(isa IntelligenceStat dndStat)
+(isa WisdomStat dndStat)
+(isa CharismaStat dndStat)
+
+(isa AthleticsSkill dndSkill)
+(isa AcrobaticsSkill dndSkill)
+(isa SleightofHandSkill dndSkill)
+(isa StealthSkill dndSkill)
+(isa ArcanaSkill dndSkill)
+(isa HistorySkill dndSkill)
+(isa InvestigationSkill dndSkill)
+(isa NatureSkill dndSkill)
+(isa ReligionSkill dndSkill)
+(isa AnimalHandlingSkill dndSkill)
+(isa InsightSkill dndSkill)
+(isa MedicineSkill dndSkill)
+(isa PerceptionSkill dndSkill)
+(isa SurvivalSkill dndSkill)
+(isa DeceptionSkill dndSkill)
+(isa IntimidationSkill dndSkill)
+(isa PerformanceSkill dndSkill)
+(isa PersuasionSkill dndSkill)
+
+(associatedStat AthleticsSkill StrengthStat)
+(associatedStat AcrobaticsSkill DexterityStat)
+(associatedStat SleightofHandSkill DexterityStat)
+(associatedStat StealthSkill DexterityStat)
+(associatedStat ArcanaSkill IntelligenceStat)
+(associatedStat HistorySkill IntelligenceStat)
+(associatedStat InvestigationSkill IntelligenceStat)
+(associatedStat NatureSkill IntelligenceStat)
+(associatedStat ReligionSkill IntelligenceStat)
+(associatedStat AnimalHandlingSkill WisdomStat)
+(associatedStat InsightSkill WisdomStat)
+(associatedStat MedicineSkill WisdomStat)
+(associatedStat PerceptionSkill WisdomStat)
+(associatedStat SurvivalSkill WisdomStat)
+(associatedStat DeceptionSkill CharismaStat)
+(associatedStat IntimidationSkill CharismaStat)
+(associatedStat PerformanceSkill CharismaStat)
+(associatedStat PersuasionSkill CharismaStat)
+
+(classSave BarbarianClass StrengthStat)
+(classSave BarbarianClass ConstitutionStat)
+(classSave BardClass DexterityStat)
+(classSave BardClass CharismaStat)
+(classSave ClericClass WisdomStat)
+(classSave ClericClass CharismaStat)
+(classSave DruidClass IntelligenceStat)
+(classSave DruidClass WisdomStat)
+
+(subclassOf PathoftheBerserker BarbarianClass)
+(subclassOf PathoftheTotemWarrior BarbarianClass)
+(subclassOf CollegeofLore BardClass)
+(subclassOf CollegeofValor BardClass)
+(subclassOf KnowledgeDomain ClericClass)
+(subclassOf LifeDomain ClericClass)
+(subclassOf NatureDomain ClericClass)
+(subclassOf TempestDomain ClericClass)
+(subclassOf TrickeryDomain ClericClass)
+(subclassOf WarDomain ClericClass)
+(subclassOf CircleoftheLand DruidClass)
+(subclassOf CircleoftheMoon DruidClass)
+(subclassOf ChampionFighter FighterClass)
+(subclassOf BattleMaster FighterClass)
+(subclassOf EldritchKnight FighterClass)
+(subclassOf WayoftheOpenHand MonkClass)
+(subclassOf WayofShadow MonkClass)
+(subclassOf WayoftheFourElements MonkClass)
+(subclassOf OathofDevotion PaladinClass)
+(subclassOf OathoftheAncients PaladinClass)
+(subclassOf OathofVengeance PaladinClass)
+(subclassOf HunterRanger RangerClass)
+(subclassOf BeastMaster RangerClass)
+(subclassOf ThiefRogue RogueClass)
+(subclassOf AssassinRogue RogueClass)
+(subclassOf ArcaneTrickster RogueClass)
+(subclassOf DraconicBloodline SorcererClass)
+(subclassOf WildMagic SorcererClass)
+(subclassOf ArchfeyPatron WarlockClass)
+(subclassOf FiendPatron WarlockClass)
+(subclassOf GreatOldOnePatron WarlockClass)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
