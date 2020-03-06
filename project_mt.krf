@@ -15,7 +15,8 @@
 (genls dndSubclass dndAttribute)
 (isa dndRace ObjectType)
 (genls dndRace dndAttribute)
-(isa dndStat ObjectType)
+(isa PlayableRace ObjectType)
+(isa dndStat TotallyOrderedQuantityType)
 (genls dndStat dndAttribute)
 (isa dndSkill ObjectType)
 (genls dndSkill dndAttribute)
@@ -38,10 +39,32 @@
 (arg2Isa classSave dndStat)
 (comment classSave "(classSave ?classname ?statname) says that classname has statname as a saving throw")
 
+(isa primaryStat Predicate)
+(arity primaryStat 2)
+(arg1Isa primaryStat dndRace)
+(arg2Isa primaryStat dndStat)
+(comment primaryStat "(primaryStat ?racename ?statname) says that racename has statname as a +2 ASI in statname")
+
+(isa secondaryStat Predicate)
+(arity clasecondaryStatssSave 2)
+(arg1Isa secondaryStat dndRace)
+(arg2Isa secondaryStat dndStat)
+(comment secondaryStat "(secondaryStat ?racename ?statname) says that racename has statname as a +1 ASI in statname")
+
+(isa negativeStat Predicate)
+(arity negativeStat 2)
+(arg1Isa negativeStat dndRace)
+(arg2Isa negativeStat dndStat)
+(comment negativeStat "(negativeStat ?racename ?statname) says that racename has statname as a -1 ASI in statname")
+
+(isa associatedTerm Predicate)
+(arity associatedTerm 2)
+(arg1Isa associatedTerm dndAttribute)
+(arg2Isa associatedTerm Entity)
+(comment associatedTerm "(associatedTerm ?racename ?statname) says that racename has statname as a -1 ASI in statname")
 
 
-
-
+; all classes
 (isa BarbarianClass dndClass)
 (isa BardClass dndClass)
 (isa ClericClass dndClass)
@@ -55,39 +78,49 @@
 (isa WarlockClass dndClass)
 (isa WizardClass dndClass)
 
-(isa PathoftheBerserker dndSubclass)
-(isa PathoftheTotemWarrior dndSubclass)
-(isa CollegeofLore dndSubclass)
-(isa CollegeofValor dndSubclass)
-(isa KnowledgeDomain dndSubclass)
-(isa LifeDomain dndSubclass)
-(isa NatureDomain dndSubclass)
-(isa TempestDomain dndSubclass)
-(isa TrickeryDomain dndSubclass)
-(isa WarDomain dndSubclass)
-(isa CircleoftheLand dndSubclass)
-(isa CircleoftheMoon dndSubclass)
-(isa ChampionFighter dndSubclass)
-(isa BattleMaster dndSubclass)
-(isa EldritchKnight dndSubclass)
-(isa WayoftheOpenHand dndSubclass)
-(isa WayofShadow dndSubclass)
-(isa WayoftheFourElements dndSubclass)
-(isa OathofDevotion dndSubclass)
-(isa OathoftheAncients dndSubclass)
-(isa OathofVengeance dndSubclass)
-(isa HunterRanger dndSubclass)
-(isa BeastMaster dndSubclass)
-(isa ThiefRogue dndSubclass)
-(isa AssassinRogue dndSubclass)
-(isa ArcaneTrickster dndSubclass)
-(isa DraconicBloodline dndSubclass)
-(isa WildMagic dndSubclass)
-(isa ArchfeyPatron dndSubclass)
-(isa FiendPatron dndSubclass)
-(isa GreatOldOnePatron dndSubclass)
+; all races
+(genls DwarfRace dndRace)
+(isa HillDwarfRace DwarfRace)
+(isa HillDwarfRace PlayableRace)
+(isa MountainDwarfRace DwarfRace)
+(isa MountainDwarfRace PlayableRace)
 
+(genls ElfRace dndRace)
+(isa HighElfRace ElfRace)
+(isa HighElfRace PlayableRace)
+(isa WoodElfRace ElfRace)
+(isa WoodElfRace PlayableRace)
+(isa DrowRace ElfRace)
+(isa DrowRace PlayableRace)
 
+(isa HalflingRace dndRace)
+(isa LightfootHalflingRace HalflingRace)
+(isa LightfootHalflingRace PlayableRace)
+(isa StoutHalflingRace HalflingRace)
+(isa StoutHalflingRace PlayableRace)
+
+(isa HumanRace dndRace)
+(isa HumanRace PlayableRace)
+
+(isa DragonbornRace dndRace)
+(isa DragonbornRace PlayableRace)
+
+(isa GnomeRace dndRace)
+(isa ForestGnomeRace GnomeRace)
+(isa ForestGnomeRace PlayableRace)
+(isa RockGnomeRace GnomeRace)
+(isa RockGnomeRace PlayableRace)
+
+(isa HalfelfRace dndRace)
+(isa HalfelfRace PlayableRace)
+
+(isa HalforcRace dndRace)
+(isa HalforcRace PlayableRace)
+
+(isa TieflingRace dndRace)
+(isa TieflingRace PlayableRace)
+
+; all stats
 (isa StrengthStat dndStat)
 (isa DexterityStat dndStat)
 (isa ConstitutionStat dndStat)
@@ -95,6 +128,7 @@
 (isa WisdomStat dndStat)
 (isa CharismaStat dndStat)
 
+; all skills
 (isa AthleticsSkill dndSkill)
 (isa AcrobaticsSkill dndSkill)
 (isa SleightofHandSkill dndSkill)
@@ -114,6 +148,10 @@
 (isa PerformanceSkill dndSkill)
 (isa PersuasionSkill dndSkill)
 
+; skill/adjective relations
+
+
+; skill/stat relations
 (associatedStat AthleticsSkill StrengthStat)
 (associatedStat AcrobaticsSkill DexterityStat)
 (associatedStat SleightofHandSkill DexterityStat)
@@ -133,6 +171,44 @@
 (associatedStat PerformanceSkill CharismaStat)
 (associatedStat PersuasionSkill CharismaStat)
 
+; race/stat relations
+(primaryStat DwarfRace ConstitutionStat)
+(secondaryStat HillDwarfRace WisdomStat)
+(primaryStat MountainDwarfRace StrengthStat)
+
+(primaryStat ElfRace DexterityStat)
+(secondaryStat HighElfRace IntelligenceStat)
+(secondaryStat WoodElfRace WisdomStat)
+(secondaryStat DrowRace CharismaStat)
+
+(primaryStat HalflingRace DexterityStat)
+(secondaryStat LightfootHalflingRace CharismaStat)
+(secondaryStat StoutHalflingRace ConstitutionStat)
+
+(secondaryStat HumanRace StrengthStat)
+(secondaryStat HumanRace DexterityStat)
+(secondaryStat HumanRace ConstitutionStat)
+(secondaryStat HumanRace IntelligenceStat)
+(secondaryStat HumanRace WisdomStat)
+(secondaryStat HumanRace CharismaStat)
+
+(primaryStat DragonbornRace StrengthStat)
+(secondaryStat DragonbornRace CharismaStat)
+
+(primaryStat GnomeRace IntelligenceStat)
+(secondaryStat ForestGnomeRace DexterityStat)
+(secondaryStat RockGnomeRace ConstitutionStat)
+
+(primaryStat HalfelfRace CharismaStat)
+; do something about halfelf secondaries; they can be anything
+
+(primaryStat HalforcRace StrengthStat)
+(secondaryStat HalforcRace ConstitutionStat)
+
+(primaryStat TieflingRace CharismaStat)
+(secondaryStat TieflingRace IntelligenceStat)
+
+; class/save relations
 (classSave BarbarianClass StrengthStat)
 (classSave BarbarianClass ConstitutionStat)
 (classSave BardClass DexterityStat)
@@ -142,37 +218,81 @@
 (classSave DruidClass IntelligenceStat)
 (classSave DruidClass WisdomStat)
 
-(subclassOf PathoftheBerserker BarbarianClass)
-(subclassOf PathoftheTotemWarrior BarbarianClass)
-(subclassOf CollegeofLore BardClass)
-(subclassOf CollegeofValor BardClass)
-(subclassOf KnowledgeDomain ClericClass)
-(subclassOf LifeDomain ClericClass)
-(subclassOf NatureDomain ClericClass)
-(subclassOf TempestDomain ClericClass)
-(subclassOf TrickeryDomain ClericClass)
-(subclassOf WarDomain ClericClass)
-(subclassOf CircleoftheLand DruidClass)
-(subclassOf CircleoftheMoon DruidClass)
-(subclassOf ChampionFighter FighterClass)
-(subclassOf BattleMaster FighterClass)
-(subclassOf EldritchKnight FighterClass)
-(subclassOf WayoftheOpenHand MonkClass)
-(subclassOf WayofShadow MonkClass)
-(subclassOf WayoftheFourElements MonkClass)
-(subclassOf OathofDevotion PaladinClass)
-(subclassOf OathoftheAncients PaladinClass)
-(subclassOf OathofVengeance PaladinClass)
-(subclassOf HunterRanger RangerClass)
-(subclassOf BeastMaster RangerClass)
-(subclassOf ThiefRogue RogueClass)
-(subclassOf AssassinRogue RogueClass)
-(subclassOf ArcaneTrickster RogueClass)
-(subclassOf DraconicBloodline SorcererClass)
-(subclassOf WildMagic SorcererClass)
-(subclassOf ArchfeyPatron WarlockClass)
-(subclassOf FiendPatron WarlockClass)
-(subclassOf GreatOldOnePatron WarlockClass)
+; ; all subclasses
+; (isa PathoftheBerserker dndSubclass)
+; (isa PathoftheTotemWarrior dndSubclass)
+; (isa CollegeofLore dndSubclass)
+; (isa CollegeofValor dndSubclass)
+; (isa KnowledgeDomain dndSubclass)
+; (isa LifeDomain dndSubclass)
+; (isa NatureDomain dndSubclass)
+; (isa TempestDomain dndSubclass)
+; (isa TrickeryDomain dndSubclass)
+; (isa WarDomain dndSubclass)
+; (isa CircleoftheLand dndSubclass)
+; (isa CircleoftheMoon dndSubclass)
+; (isa ChampionFighter dndSubclass)
+; (isa BattleMaster dndSubclass)
+; (isa EldritchKnight dndSubclass)
+; (isa WayoftheOpenHand dndSubclass)
+; (isa WayofShadow dndSubclass)
+; (isa WayoftheFourElements dndSubclass)
+; (isa OathofDevotion dndSubclass)
+; (isa OathoftheAncients dndSubclass)
+; (isa OathofVengeance dndSubclass)
+; (isa HunterRanger dndSubclass)
+; (isa BeastMaster dndSubclass)
+; (isa ThiefRogue dndSubclass)
+; (isa AssassinRogue dndSubclass)
+; (isa ArcaneTrickster dndSubclass)
+; (isa DraconicBloodline dndSubclass)
+; (isa WildMagic dndSubclass)
+; (isa ArchfeyPatron dndSubclass)
+; (isa FiendPatron dndSubclass)
+; (isa GreatOldOnePatron dndSubclass)
+
+; ; subclass/class relations
+; (subclassOf PathoftheBerserker BarbarianClass)
+; (subclassOf PathoftheTotemWarrior BarbarianClass)
+; (subclassOf CollegeofLore BardClass)
+; (subclassOf CollegeofValor BardClass)
+; (subclassOf KnowledgeDomain ClericClass)
+; (subclassOf LifeDomain ClericClass)
+; (subclassOf NatureDomain ClericClass)
+; (subclassOf TempestDomain ClericClass)
+; (subclassOf TrickeryDomain ClericClass)
+; (subclassOf WarDomain ClericClass)
+; (subclassOf CircleoftheLand DruidClass)
+; (subclassOf CircleoftheMoon DruidClass)
+; (subclassOf ChampionFighter FighterClass)
+; (subclassOf BattleMaster FighterClass)
+; (subclassOf EldritchKnight FighterClass)
+; (subclassOf WayoftheOpenHand MonkClass)
+; (subclassOf WayofShadow MonkClass)
+; (subclassOf WayoftheFourElements MonkClass)
+; (subclassOf OathofDevotion PaladinClass)
+; (subclassOf OathoftheAncients PaladinClass)
+; (subclassOf HunterRanger RangerClass)
+; (subclassOf OathofVengeance PaladinClass)
+; (subclassOf BeastMaster RangerClass)
+; (subclassOf ThiefRogue RogueClass)
+; (subclassOf AssassinRogue RogueClass)
+; (subclassOf ArcaneTrickster RogueClass)
+; (subclassOf DraconicBloodline SorcererClass)
+; (subclassOf WildMagic SorcererClass)
+; (subclassOf ArchfeyPatron WarlockClass)
+; (subclassOf FiendPatron WarlockClass)
+; (subclassOf GreatOldOnePatron WarlockClass)
+
+
+; horn clause tests?
+
+(<== (primaryStat ?subracename ?statname)
+	(isa ?subracename PlayableRace)
+	(isa ?subracename ?racename)
+	(genls ?racename ?dndRace)
+	(primaryStat ?racename ?statname))
+
 
 
 
