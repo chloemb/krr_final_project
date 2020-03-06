@@ -59,9 +59,9 @@
 
 (isa associatedTerm Predicate)
 (arity associatedTerm 2)
-(arg1Isa associatedTerm dndAttribute)
+(arg1Isa associatedTerm dndStat)
 (arg2Isa associatedTerm Entity)
-(comment associatedTerm "(associatedTerm ?racename ?statname) says that racename has statname as a -1 ASI in statname")
+(comment associatedTerm "(associatedTerm ?racename ?statname) says that skillname is associated with Entity")
 
 (isa primaryClassSkill Predicate)
 (arity primaryClassSkill 2)
