@@ -45,7 +45,7 @@
 (arity primaryStat 3)
 (arg1Isa primaryStat dndRace)
 (arg2Isa primaryStat dndStat)
-(arg3Isa ClassSkillValue ScalarInterval)
+(arg3Isa primaryStat ScalarInterval)
 (comment primaryStat "(primaryStat ?racename ?statname) says that racename has statname as a ScalarInterval ASI in statname")
 
 (isa associatedTerm Predicate)
@@ -172,7 +172,6 @@
 (arg8Isa statsFromTerms dndTerm)
 (comment statsFromTerms "gets stats from terms")
 
-(getClassAndStats ?class ?str ?dex ?con ?int ?wis ?cha ?termA ?termB ?termC ?termD)
 (isa getClassAndStats Predicate)
 (arity getClassAndStats 11)
 (arg1Isa getClassAndStats dndClass)
@@ -187,8 +186,7 @@
 (arg10Isa getClassAndStats dndTerm)
 (arg11Isa getClassAndStats dndTerm)
 
-(getRaceAndClassAndStats ?race ?class ?str ?dex ?con ?int ?wis ?cha ?termA ?termB ?termC ?termD)
-(isa RaceAndClassAndStats Predicate)
+(isa getRaceAndClassAndStats Predicate)
 (arity RaceAndClassAndStats 12)
 (arg1Isa RaceAndClassAndStats dndRace)
 (arg2Isa RaceAndClassAndStats dndClass)
@@ -260,31 +258,31 @@
 (isa DrowRace ElfRace)
 (isa DrowRace PlayableRace)
 
-(isa HalflingRace dndRace)
+(genls HalflingRace dndRace)
 (isa LightfootHalflingRace HalflingRace)
 (isa LightfootHalflingRace PlayableRace)
 (isa StoutHalflingRace HalflingRace)
 (isa StoutHalflingRace PlayableRace)
 
-(isa HumanRace dndRace)
+(genls HumanRace dndRace)
 (isa HumanRace PlayableRace)
 
-(isa DragonbornRace dndRace)
+(genls DragonbornRace dndRace)
 (isa DragonbornRace PlayableRace)
 
-(isa GnomeRace dndRace)
+(genls GnomeRace dndRace)
 (isa ForestGnomeRace GnomeRace)
 (isa ForestGnomeRace PlayableRace)
 (isa RockGnomeRace GnomeRace)
 (isa RockGnomeRace PlayableRace)
 
-(isa HalfelfRace dndRace)
+(genls HalfelfRace dndRace)
 (isa HalfelfRace PlayableRace)
 
-(isa HalforcRace dndRace)
+(genls HalforcRace dndRace)
 (isa HalforcRace PlayableRace)
 
-(isa TieflingRace dndRace)
+(genls TieflingRace dndRace)
 (isa TieflingRace PlayableRace)
 
 ; all stats
@@ -1043,11 +1041,11 @@
 	(getStatsWeights ?class ?termA ?termB ?termC ?termD ?str ?dex ?con ?int ?wis ?cha))
 
 (<== (sumRace ?race ?skillA ?skillB ?skillC ?skillD ?sum)
-	(getRaceValue ?race ?skillA ?valueA) 
-	(getRaceValue ?race ?skillB ?valueB) 
-	(getRaceValue ?race ?skillC ?valueC) 
+	(getRaceValue ?race ?skillA ?valueA)
+	(getRaceValue ?race ?skillB ?valueB)
+	(getRaceValue ?race ?skillC ?valueC)
 	(getRaceValue ?race ?skillD ?valueD)
-	(evaluate ?sum (PlusFn ?valueA ?valueB ?valueC ?valueD))
+	(evaluate ?sum (PlusFn ?valueA ?valueB ?valueC ?valueD)))
 
 (<== (getRaceValue ?race ?skill ?value)
 	(associatedStat ?skill ?stat)
@@ -1059,6 +1057,7 @@
 
 (<== (getRace ?race ?termA ?termB ?termC ?termD)
 	(getAllSkills ?skillA ?skillB ?skillC ?skillD ?termA ?termB ?termC ?termD)
+	(isa ?race PlayableRace)
 	(sumRace TieflingRace ?skillA ?skillB ?skillC ?skillD ?sumA)
 	(sumRace HumanRace ?skillA ?skillB ?skillC ?skillD ?sumB)
 	(sumRace HalfelfRace ?skillA ?skillB ?skillC ?skillD ?sumC)
