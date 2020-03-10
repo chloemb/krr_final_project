@@ -201,7 +201,6 @@
 (arg11Isa getRaceAndClassAndStats dndTerm)
 (arg12Isa getRaceAndClassAndStats dndTerm)
 
-(getRace ?race ?str ?dex ?con ?int ?wis ?cha)
 (isa getRace Predicate)
 (arity getRace 7)
 (arg1Isa getRace dndRace)
@@ -212,14 +211,12 @@
 (arg6Isa getRace ScalarInterval)
 (arg7Isa getRace ScalarInterval)
 
-(getRaceValue ?race ?skill ?value)
 (isa getRaceValue Predicate)
 (arity getRaceValue 3)
 (arg1Isa getRaceValue dndRace)
 (arg2Isa getRaceValue dndSkill)
 (arg3Isa getRaceValue ScalarInterval)
 
-(sumRace ?race ?skillA ?skillB ?skillC ?skillD ?sum)
 (isa sumRace Predicate)
 (arity sumRace 6)
 (arg1Isa sumRace dndRace)
@@ -596,7 +593,7 @@
 
 (primaryStat ElfRace DexterityStat 2)
 (primaryStat ElfRace StrengthStat 0)
-(primaryStat ElfRace Constitution 0)
+(primaryStat ElfRace ConstitutionStat 0)
 (primaryStat HighElfRace IntelligenceStat 1)
 (primaryStat HighElfRace WisdomStat 0)
 (primaryStat HighElfRace CharismaStat 0)
@@ -840,6 +837,9 @@
 	(genls ?racename ?dndRace)
 	(primaryStat ?racename ?statname ?val))
 
+(<== (primaryStat ?racename MagicStat 0)
+	(isa ?racename PlayableRace))
+
 (<== (getAllSkills ?skillA ?skillB ?skillC ?skillD ?termA ?termB ?termC ?termD) 
 	(associatedTerm ?skillA ?termA)
 	(associatedTerm ?skillB ?termB)
@@ -1057,7 +1057,6 @@
 
 (<== (getRace ?race ?termA ?termB ?termC ?termD)
 	(getAllSkills ?skillA ?skillB ?skillC ?skillD ?termA ?termB ?termC ?termD)
-	(isa ?race PlayableRace)
 	(sumRace TieflingRace ?skillA ?skillB ?skillC ?skillD ?sumA)
 	(sumRace HumanRace ?skillA ?skillB ?skillC ?skillD ?sumB)
 	(sumRace HalfelfRace ?skillA ?skillB ?skillC ?skillD ?sumC)
@@ -1086,6 +1085,7 @@
     (greatestValue ?result11 ?sumL ?result12)
     (greatestValue ?result12 ?sumM ?result13)
     (greatestValue ?result13 ?sumN ?result14)
+    (isa ?race PlayableRace)
     (sumRace ?race ?skillA ?skillB ?skillC ?skillD ?result14)
 	)
 
