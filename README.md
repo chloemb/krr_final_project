@@ -36,7 +36,7 @@ Our project is a character generator for the tabletop roleplaying game Dungeons 
 | charm | Charm |
 | farm | Farm |
 | edgy | Edgy |
-| worldly | Worldy |
+| worldly | Worldly |
 | wild | Wild |
 | lie detector | LieDetector |
 | doctor | Doctor |
